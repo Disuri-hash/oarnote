@@ -1,0 +1,6 @@
+<?php
+function workout_amount($value,$unit){if($value===null||$value==='')return ''; $labels=['metres'=>'m','seconds'=>'sec','minutes'=>'min','strokes'=>'strokes'];return htmlspecialchars($value).' '.($labels[$unit]??htmlspecialchars($unit??''));}
+function workout_segment_title(array $s){$work=workout_amount($s['work_value'],$s['work_unit']);$reps=(int)($s['repetitions']??0);if($s['segment_type']==='water_shed')return htmlspecialchars($s['title']?:$work).($reps>1?' × '.$reps:'');return ($reps>1?$reps.' × ':'').$work;}
+function display_workout_segment(array $s,int $number){?>
+<article class="workout-piece"><div class="piece-number"><?= $number ?></div><div class="piece-content"><h3><?= workout_segment_title($s) ?></h3><div class="piece-targets"><?php if($s['recovery_value']): ?><span><small>Recovery</small><?= workout_amount($s['recovery_value'],$s['recovery_unit']) ?></span><?php endif ?><?php if($s['target_rate']): ?><span><small>Rate</small><?= htmlspecialchars($s['target_rate']) ?> spm</span><?php endif ?><?php if($s['target_split']): ?><span><small>Target split</small><?= htmlspecialchars($s['target_split']) ?></span><?php endif ?></div><?php if($s['notes']): ?><div class="coach-note"><strong>Coach note</strong><p><?= nl2br(htmlspecialchars($s['notes'])) ?></p></div><?php endif ?></div></article>
+<?php }

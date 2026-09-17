@@ -1,0 +1,40 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: oarnote
+      DB_USER: oaruser
+      DB_PASS: oarpw
+    volumes:
+      - ./app:/var/www/html
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: oarnote
+      MYSQL_USER: oaruser
+      MYSQL_PASSWORD: oarpw
+      MYSQL_ROOT_PASSWORD: rootpw
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: oaruser
+      PMA_PASSWORD: oarpw
+    ports:
+      - "8081:80"
+
+volumes:
+  db_data:
