@@ -1,44 +1,91 @@
-# OarNote — Minimal Rowing Sessions (MVP)
+🚣 OarNote
 
-This is a minimal implementation of OarNote: a tiny PHP + MySQL app for recording rowing sessions, intended as a learning project for Docker and Ansible.
+OarNote is a web-based rowing session management platform designed for coxswains, coaches, and rowing teams. It replaces scattered notes, WhatsApp messages, spreadsheets, and paper logbooks with a single structured system for recording, tracking, and reviewing rowing sessions.
 
-Quick run (local with Docker Compose):
+🎯 Purpose
 
-```bash
-docker compose up -d --build
-# open http://localhost:8080
-```
+Rowing teams often lose valuable training data because session information is stored across multiple places. OarNote solves this by centralizing everything into one platform, making it easier to track performance, technical feedback, and training history over time.
 
-If you already have an OarNote database volume from the earlier MVP, run the one-time schema migration before opening the new session builder:
+👥 Target Users
+Coxswains
+Coaches
+Team Administrators
+🚀 MVP Features
+🔐 Authentication
+User login and logout
+Role-based access (Coxswain / Coach)
+📝 Session Management
+Create new rowing sessions
+Edit session details
+View past sessions
+Delete sessions
 
-PowerShell:
+Each session includes:
 
-```powershell
-cmd /c "docker compose exec -T db mysql -uoaruser -poarpw oarnote < sql\migrate-session-programming.sql"
-```
+Date
+Session type (Water / Erg / Race / etc.)
+Boat
+Crew
+Coach
+Weather conditions
+Water conditions
+General notes
+🧑‍🤝‍🧑 Athlete Management
+Add and manage athletes
+Assign athletes to sessions
+View athlete profiles and history
+📊 Erg Performance Tracking
+Record erg test results
+Distance
+Time
+Split time
+View historical performance data
+🧠 Technical Notes
 
-Bash, zsh, or Command Prompt:
+Record coaching observations per athlete or crew, including:
 
-```bash
-docker compose exec -T db mysql -uoaruser -poarpw oarnote < sql/migrate-session-programming.sql
-```
+Timing
+Balance
+Catch
+Finish
+Recovery
+Other technical issues
+Detailed comments
+📋 Session Summary
+What went well
+Areas for improvement
+Coach feedback
+Overall reflections
+📊 Dashboard
 
-What is included:
-- `app/` — simple PHP app (`index.php`, `db.php`)
-- `Dockerfile` — PHP/Apache image
-- `docker-compose.yml` — runs `web` and `db`
-- `ansible/` — `inventory.ini` and `playbook.yml` to provision an Ubuntu host and deploy the app
+A simple overview panel showing:
 
-Session programming now includes five erg formats, flexible ordered water sheds, rower submissions, coach review, and overall coach feedback.
+Recent sessions
+Total sessions logged
+Total athletes tracked
+Quick access to create a new session
+🔮 Future Features (Out of MVP Scope)
+Injury tracking system
+Attendance tracking
+Performance analytics & graphs
+Trend visualization
+Athlete self-service portal
+Mobile application
+AI-generated coaching insights
+🛠️ Technical Goals
 
-After applying the main session-programming migration, apply the current MVP additions (status, purpose, boat class, RPE/attendance, and interval results):
+This project is built to demonstrate:
 
-```powershell
-cmd /c "docker compose exec -T db mysql -uoaruser -poarpw oarnote < sql\migrate-mvp-improvements.sql"
-```
+Full-stack web development
+Authentication & authorization systems
+Relational database design
+CRUD operations (Create, Read, Update, Delete)
+Dashboard-based UI design
+Real-world problem-solving
+📌 Project Goal
 
-Next steps:
-- Test locally via Docker Compose
-- Launch an Ubuntu EC2 instance (Ubuntu 22.04 recommended)
-- Edit `ansible/inventory.ini` with your EC2 IP and key
-- Run `ansible-playbook -i ansible/inventory.ini ansible/playbook.yml`
+The MVP focuses on simplicity and usability, aiming to replace traditional rowing logbooks with a structured digital system that improves consistency, accessibility, and long-term performance tracking.
+
+🧭 Status
+
+🚧 In Development (MVP Phase)
